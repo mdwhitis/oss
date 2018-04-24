@@ -1,0 +1,27 @@
+# Note: These examples do not set authentication details, see the AWS Guide for details.
+# Note: This module does not allow management of groups that users belong to.
+#       Groups should manage their membership directly using `iam_group`,
+#       as users belong to them.
+
+# Create a user
+- iam_user:
+    name: testuser1
+    state: present
+
+# Create a user and attach a managed policy using its ARN
+- iam_user:
+    name: testuser1
+    managed_policy:
+      - arn:aws:iam::aws:policy/AmazonSNSFullAccess
+    state: present
+
+# Remove all managed policies from an existing user with an empty list
+- iam_user:
+    name: testuser1
+    state: present
+    purge_policy: true
+
+# Delete the user
+- iam_user:
+    name: testuser1
+    state: absent
